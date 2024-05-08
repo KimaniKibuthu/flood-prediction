@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "flood-prediction"
+version = "0.1.0"
+description = ""
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pandas = "^2.2.2"
+numpy = "^1.26.4"
+matplotlib = "^3.8.4"
+seaborn = "^0.13.2"
+jupyter = "^1.0.0"
+pyyaml = "^6.0.1"
+geopandas = "^0.14.4"
+folium = "^0.16.0"
+contextily = "^1.6.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
