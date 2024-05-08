@@ -1,0 +1,3 @@
+data:
+    raw_data_path: "data/raw/FloodPrediction.csv"
+    processed_data_path: "data/processed/clean_flood_data.csv"
