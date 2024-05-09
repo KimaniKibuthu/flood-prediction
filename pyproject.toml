@@ -16,6 +16,7 @@ pyyaml = "^6.0.1"
 geopandas = "^0.14.4"
 folium = "^0.16.0"
 contextily = "^1.6.0"
+scikit-learn = "^1.4.2"
 
 
 [build-system]
