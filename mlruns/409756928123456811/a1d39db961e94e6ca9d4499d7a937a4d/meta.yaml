@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/409756928123456811/a1d39db961e94e6ca9d4499d7a937a4d/artifacts
+end_time: 1715769822758
+entry_point_name: ''
+experiment_id: '409756928123456811'
+lifecycle_stage: active
+run_id: a1d39db961e94e6ca9d4499d7a937a4d
+run_name: sassy-donkey-369
+run_uuid: a1d39db961e94e6ca9d4499d7a937a4d
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1715769804674
+status: 3
+tags: []
+user_id: Spectra

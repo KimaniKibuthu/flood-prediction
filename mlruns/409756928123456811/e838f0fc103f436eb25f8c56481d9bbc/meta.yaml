@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/409756928123456811/e838f0fc103f436eb25f8c56481d9bbc/artifacts
+end_time: 1715763860759
+entry_point_name: ''
+experiment_id: '409756928123456811'
+lifecycle_stage: active
+run_id: e838f0fc103f436eb25f8c56481d9bbc
+run_name: sneaky-skink-464
+run_uuid: e838f0fc103f436eb25f8c56481d9bbc
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1715763839854
+status: 4
+tags: []
+user_id: Spectra

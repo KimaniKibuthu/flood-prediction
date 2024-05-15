@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/409756928123456811/164fac809a204b5da7fb574eae6d0c3d/artifacts
+end_time: 1715704695428
+entry_point_name: ''
+experiment_id: '409756928123456811'
+lifecycle_stage: active
+run_id: 164fac809a204b5da7fb574eae6d0c3d
+run_name: upset-foal-988
+run_uuid: 164fac809a204b5da7fb574eae6d0c3d
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1715704693118
+status: 4
+tags: []
+user_id: Spectra

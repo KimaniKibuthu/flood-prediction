@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/409756928123456811/1ad5ba8d7aee4121b8da556abbafddea/artifacts
+end_time: 1715770927840
+entry_point_name: ''
+experiment_id: '409756928123456811'
+lifecycle_stage: active
+run_id: 1ad5ba8d7aee4121b8da556abbafddea
+run_name: capable-flea-246
+run_uuid: 1ad5ba8d7aee4121b8da556abbafddea
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1715770895397
+status: 3
+tags: []
+user_id: Spectra

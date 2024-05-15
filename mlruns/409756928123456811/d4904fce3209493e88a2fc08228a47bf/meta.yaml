@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/409756928123456811/d4904fce3209493e88a2fc08228a47bf/artifacts
+end_time: 1715705545338
+entry_point_name: ''
+experiment_id: '409756928123456811'
+lifecycle_stage: active
+run_id: d4904fce3209493e88a2fc08228a47bf
+run_name: loud-kite-65
+run_uuid: d4904fce3209493e88a2fc08228a47bf
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1715705460307
+status: 3
+tags: []
+user_id: Spectra

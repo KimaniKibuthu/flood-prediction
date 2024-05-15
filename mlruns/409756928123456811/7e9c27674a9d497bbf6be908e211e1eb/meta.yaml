@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/409756928123456811/7e9c27674a9d497bbf6be908e211e1eb/artifacts
+end_time: 1715710944027
+entry_point_name: ''
+experiment_id: '409756928123456811'
+lifecycle_stage: active
+run_id: 7e9c27674a9d497bbf6be908e211e1eb
+run_name: burly-shad-125
+run_uuid: 7e9c27674a9d497bbf6be908e211e1eb
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1715709999632
+status: 4
+tags: []
+user_id: Spectra

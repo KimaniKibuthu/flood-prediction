@@ -1,0 +1,28 @@
+artifact_path: model
+flavors:
+  lightgbm:
+    code: null
+    data: model.lgb
+    lgb_version: 4.3.0
+    model_class: lightgbm.basic.Booster
+  python_function:
+    data: model.lgb
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.lightgbm
+    python_version: 3.11.5
+mlflow_version: 2.12.2
+model_size_bytes: 656995
+model_uuid: 1d8a2621c4074ecfa39f24ce2eee9877
+run_id: c3de27c0f8d7465e957f7fb0fa11fdd7
+signature:
+  inputs: '[{"type": "double", "name": "Min_Temp", "required": true}, {"type": "double",
+    "name": "Rainfall", "required": true}, {"type": "double", "name": "Bright_Sunshine",
+    "required": true}, {"type": "long", "name": "Station_Number", "required": true},
+    {"type": "long", "name": "ALT", "required": true}, {"type": "double", "name":
+    "rain_latitude", "required": true}, {"type": "double", "name": "rain_longitude",
+    "required": true}, {"type": "double", "name": "dist_to_water", "required": true}]'
+  outputs: '[{"type": "tensor", "tensor-spec": {"dtype": "float64", "shape": [-1]}}]'
+  params: null
+utc_time_created: '2024-05-15 07:35:51.053946'

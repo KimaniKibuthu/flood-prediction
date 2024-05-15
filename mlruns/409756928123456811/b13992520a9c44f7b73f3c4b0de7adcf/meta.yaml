@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/409756928123456811/b13992520a9c44f7b73f3c4b0de7adcf/artifacts
+end_time: 1715705794871
+entry_point_name: ''
+experiment_id: '409756928123456811'
+lifecycle_stage: active
+run_id: b13992520a9c44f7b73f3c4b0de7adcf
+run_name: colorful-shark-193
+run_uuid: b13992520a9c44f7b73f3c4b0de7adcf
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1715705725350
+status: 3
+tags: []
+user_id: Spectra

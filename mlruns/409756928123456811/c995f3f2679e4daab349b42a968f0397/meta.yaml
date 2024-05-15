@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/409756928123456811/c995f3f2679e4daab349b42a968f0397/artifacts
+end_time: 1715708584254
+entry_point_name: ''
+experiment_id: '409756928123456811'
+lifecycle_stage: active
+run_id: c995f3f2679e4daab349b42a968f0397
+run_name: righteous-tern-893
+run_uuid: c995f3f2679e4daab349b42a968f0397
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1715708497241
+status: 3
+tags: []
+user_id: Spectra

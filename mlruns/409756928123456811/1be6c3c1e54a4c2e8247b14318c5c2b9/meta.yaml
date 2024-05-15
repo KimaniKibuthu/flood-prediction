@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/409756928123456811/1be6c3c1e54a4c2e8247b14318c5c2b9/artifacts
+end_time: 1715703733772
+entry_point_name: ''
+experiment_id: '409756928123456811'
+lifecycle_stage: active
+run_id: 1be6c3c1e54a4c2e8247b14318c5c2b9
+run_name: caring-squirrel-104
+run_uuid: 1be6c3c1e54a4c2e8247b14318c5c2b9
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1715703490642
+status: 4
+tags: []
+user_id: Spectra

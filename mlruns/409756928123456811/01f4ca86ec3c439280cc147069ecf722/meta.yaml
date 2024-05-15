@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/409756928123456811/01f4ca86ec3c439280cc147069ecf722/artifacts
+end_time: 1715763302983
+entry_point_name: ''
+experiment_id: '409756928123456811'
+lifecycle_stage: active
+run_id: 01f4ca86ec3c439280cc147069ecf722
+run_name: righteous-stork-806
+run_uuid: 01f4ca86ec3c439280cc147069ecf722
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1715763279364
+status: 3
+tags: []
+user_id: Spectra
