@@ -1,0 +1,28 @@
+artifact_path: model
+flavors:
+  lightgbm:
+    code: null
+    data: model.pkl
+    lgb_version: 4.3.0
+    model_class: lightgbm.sklearn.LGBMClassifier
+  python_function:
+    data: model.pkl
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.lightgbm
+    python_version: 3.11.5
+mlflow_version: 2.12.2
+model_size_bytes: 341521
+model_uuid: bfe0848985334ba7bb6507608c6e6082
+run_id: 330e8cef51df470893483b9b27f29cff
+signature:
+  inputs: '[{"type": "double", "name": "Min_Temp", "required": true}, {"type": "double",
+    "name": "Rainfall", "required": true}, {"type": "double", "name": "Bright_Sunshine",
+    "required": true}, {"type": "long", "name": "Station_Number", "required": true},
+    {"type": "long", "name": "ALT", "required": true}, {"type": "double", "name":
+    "rain_latitude", "required": true}, {"type": "double", "name": "rain_longitude",
+    "required": true}, {"type": "double", "name": "dist_to_water", "required": true}]'
+  outputs: '[{"type": "tensor", "tensor-spec": {"dtype": "int64", "shape": [-1]}}]'
+  params: null
+utc_time_created: '2024-05-14 19:33:26.596750'

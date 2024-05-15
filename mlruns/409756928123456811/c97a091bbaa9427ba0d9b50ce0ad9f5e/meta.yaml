@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/409756928123456811/c97a091bbaa9427ba0d9b50ce0ad9f5e/artifacts
+end_time: 1715706137087
+entry_point_name: ''
+experiment_id: '409756928123456811'
+lifecycle_stage: active
+run_id: c97a091bbaa9427ba0d9b50ce0ad9f5e
+run_name: unruly-seal-755
+run_uuid: c97a091bbaa9427ba0d9b50ce0ad9f5e
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1715706087455
+status: 3
+tags: []
+user_id: Spectra

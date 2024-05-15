@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/409756928123456811/7ae3571c72194b13bee8e33d2e5dd568/artifacts
+end_time: 1715714022580
+entry_point_name: ''
+experiment_id: '409756928123456811'
+lifecycle_stage: active
+run_id: 7ae3571c72194b13bee8e33d2e5dd568
+run_name: receptive-shad-141
+run_uuid: 7ae3571c72194b13bee8e33d2e5dd568
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1715713994248
+status: 3
+tags: []
+user_id: Spectra

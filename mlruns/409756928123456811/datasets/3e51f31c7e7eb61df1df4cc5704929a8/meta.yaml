@@ -1,0 +1,13 @@
+digest: 51a1d07e
+name: dataset
+profile: '{"num_rows": 8000, "num_elements": 72000}'
+schema: '{"mlflow_colspec": [{"type": "double", "name": "Rainfall", "required": true},
+  {"type": "double", "name": "Relative_Humidity", "required": true}, {"type": "double",
+  "name": "Cloud_Coverage", "required": true}, {"type": "long", "name": "Station_Number",
+  "required": true}, {"type": "double", "name": "Min_Temp", "required": true}, {"type":
+  "double", "name": "rain_latitude", "required": true}, {"type": "double", "name":
+  "rain_longitude", "required": true}, {"type": "double", "name": "dist_to_water",
+  "required": true}, {"type": "double", "name": "river_discharge", "required": true}]}'
+source: '{"tags": {"mlflow.user": "Spectra", "mlflow.source.name": "c:\\Users\\Spectra\\flood-prediction\\.venv\\Lib\\site-packages\\ipykernel_launcher.py",
+  "mlflow.source.type": "LOCAL"}}'
+source_type: code

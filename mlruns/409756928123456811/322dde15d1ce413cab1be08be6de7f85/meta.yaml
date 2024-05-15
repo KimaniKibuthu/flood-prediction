@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/409756928123456811/322dde15d1ce413cab1be08be6de7f85/artifacts
+end_time: 1715761198760
+entry_point_name: ''
+experiment_id: '409756928123456811'
+lifecycle_stage: active
+run_id: 322dde15d1ce413cab1be08be6de7f85
+run_name: intelligent-yak-690
+run_uuid: 322dde15d1ce413cab1be08be6de7f85
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1715761129494
+status: 3
+tags: []
+user_id: Spectra

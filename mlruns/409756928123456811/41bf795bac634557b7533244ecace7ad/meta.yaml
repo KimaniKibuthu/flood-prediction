@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/409756928123456811/41bf795bac634557b7533244ecace7ad/artifacts
+end_time: 1715705725222
+entry_point_name: ''
+experiment_id: '409756928123456811'
+lifecycle_stage: active
+run_id: 41bf795bac634557b7533244ecace7ad
+run_name: melodic-wolf-794
+run_uuid: 41bf795bac634557b7533244ecace7ad
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1715705545446
+status: 3
+tags: []
+user_id: Spectra

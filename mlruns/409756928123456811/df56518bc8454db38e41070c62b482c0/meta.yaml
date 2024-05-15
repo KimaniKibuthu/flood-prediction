@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/409756928123456811/df56518bc8454db38e41070c62b482c0/artifacts
+end_time: 1715715356358
+entry_point_name: ''
+experiment_id: '409756928123456811'
+lifecycle_stage: active
+run_id: df56518bc8454db38e41070c62b482c0
+run_name: worried-duck-82
+run_uuid: df56518bc8454db38e41070c62b482c0
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1715715340679
+status: 3
+tags: []
+user_id: Spectra

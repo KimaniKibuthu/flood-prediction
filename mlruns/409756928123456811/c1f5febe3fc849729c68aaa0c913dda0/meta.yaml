@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/409756928123456811/c1f5febe3fc849729c68aaa0c913dda0/artifacts
+end_time: 1715763814076
+entry_point_name: ''
+experiment_id: '409756928123456811'
+lifecycle_stage: active
+run_id: c1f5febe3fc849729c68aaa0c913dda0
+run_name: legendary-mare-163
+run_uuid: c1f5febe3fc849729c68aaa0c913dda0
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1715763789479
+status: 4
+tags: []
+user_id: Spectra

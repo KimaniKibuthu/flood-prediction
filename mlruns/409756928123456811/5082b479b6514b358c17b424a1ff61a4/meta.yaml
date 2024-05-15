@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/409756928123456811/5082b479b6514b358c17b424a1ff61a4/artifacts
+end_time: 1715758435321
+entry_point_name: ''
+experiment_id: '409756928123456811'
+lifecycle_stage: active
+run_id: 5082b479b6514b358c17b424a1ff61a4
+run_name: amazing-fox-445
+run_uuid: 5082b479b6514b358c17b424a1ff61a4
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1715758416095
+status: 3
+tags: []
+user_id: Spectra

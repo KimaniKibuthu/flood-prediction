@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/409756928123456811/89bc232b5443439ebfd0c30af7af9edf/artifacts
+end_time: 1715704901224
+entry_point_name: ''
+experiment_id: '409756928123456811'
+lifecycle_stage: active
+run_id: 89bc232b5443439ebfd0c30af7af9edf
+run_name: mercurial-crane-684
+run_uuid: 89bc232b5443439ebfd0c30af7af9edf
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1715704901010
+status: 4
+tags: []
+user_id: Spectra

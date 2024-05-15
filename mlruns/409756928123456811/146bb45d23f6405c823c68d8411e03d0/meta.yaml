@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/409756928123456811/146bb45d23f6405c823c68d8411e03d0/artifacts
+end_time: 1715705460206
+entry_point_name: ''
+experiment_id: '409756928123456811'
+lifecycle_stage: active
+run_id: 146bb45d23f6405c823c68d8411e03d0
+run_name: defiant-bird-395
+run_uuid: 146bb45d23f6405c823c68d8411e03d0
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1715705361008
+status: 3
+tags: []
+user_id: Spectra
