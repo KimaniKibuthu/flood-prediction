@@ -91,5 +91,8 @@ target/
 data/
 AutogluonModels/
 logs/
+
 mlruns/
+
 mlartifacts/
+.cache.sqlite
