@@ -93,7 +93,7 @@ flood-prediction/
 5. Start the API server:
 
     ```bash
-    poetry run uvicorn main:app --host 0.0.0.0 --port 8000
+    poetry run uvicorn app:app --host 0.0.0.0 --port 8000
     ```	
 
 6. Access the API:
