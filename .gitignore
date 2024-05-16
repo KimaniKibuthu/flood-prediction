@@ -88,7 +88,9 @@ target/
 # Mypy cache
 .mypy_cache/
 
-data/
+data/processed
+data/raw
+
 AutogluonModels/
 logs/
 

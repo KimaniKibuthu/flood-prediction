@@ -81,7 +81,7 @@ flood-prediction/
 3. Install dependencies:
 
     ```bash
-    poetry install
+    poetry install --no-root
     ```
 
 4. Activate the virtual environment:
