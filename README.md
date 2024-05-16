@@ -1,25 +1,37 @@
-flood-prediction
-==============================
 
-Create a model that predicts floods
+# Flood Prediction API
 
-Project Organization
-------------
+## Overview
+
+The Flood Prediction API is designed to predict the likelihood of floods based on weather data, as well as provide estimates for rainfall and river discharge. The API fetches weather data from the Open-Meteo API and uses a pre-trained machine learning model to generate predictions. This API can be integrated into a Unity environment for visualization purposes.
+
+## Features
+
+- Predict flood probability based on current weather data.
+- Provide estimated rainfall and daily river discharge.
+
+## Requirements
+- Python 3.8+
+- Poetry
+
+## Project Organization
 
 ```
 flood-prediction/
 ├── LICENSE     
 ├── README.md                  
-├── Makefile                     # Makefile with commands like `make data` or `make train`                   
-├── configs                      # Config files (models and training hyperparameters)
-│   └── model1.yaml              
+├── Makefile 
+├── app.py  
+├── pyproject.toml                                      
+├── configs                      
+│   └── configs.yaml               # Configurations for the project   
 │
 ├── data                         
-│   ├── external                 # Data from third party sources.
-│   ├── interim                  # Intermediate data that has been transformed.
-│   ├── processed                # The final, canonical data sets for modeling.
-│   └── raw                      # The original, immutable data dump.
-│
+│   ├── testing_data                
+│   ├── training_data                  
+│   ├── processed                
+│   ├── raw                      
+│   └── reference_data
 ├── docs                         # Project documentation.
 │
 ├── models                       # Trained and serialized models.
@@ -28,10 +40,9 @@ flood-prediction/
 │
 ├── references                   # Data dictionaries, manuals, and all other explanatory materials.
 │
-├── reports                      # Generated analysis as HTML, PDF, LaTeX, etc.
+├── reports                      # Generated analysis 
 │   └── figures                  # Generated graphics and figures to be used in reporting.
 │
-├── requirements.txt             # The requirements file for reproducing the analysis environment.
 └── src                          # Source code for use in this project.
     ├── __init__.py              # Makes src a Python module.
     │
@@ -56,9 +67,74 @@ flood-prediction/
         ├── evaluation.py        
         └── exploration.py       
 ```
+**DISCLAIMER**: As the project is still underway, all the work done is currently in the `notebooks` directory, the API in the `app.py` file and the model in the `models` directory. 
+## Installation
 
+1. Clone the repository:
 
---------
-<p><small>Project based on the <a target="_blank" href="https://github.com/Chim-SO/cookiecutter-mlops/">cookiecutter MLOps project template</a>
-that is originally based on <a target="_blank" href="https://drivendata.github.io/cookiecutter-data-science/">cookiecutter data science project template</a>. 
-#cookiecuttermlops #cookiecutterdatascience</small></p>
+2. Install Poetry:
+
+    ```bash	
+    pip install poetry
+    ```	
+
+3. Install dependencies:
+
+    ```bash
+    poetry install
+    ```
+
+4. Activate the virtual environment:
+
+    ```bash
+    poetry shell
+    ```	
+
+5. Start the API server:
+
+    ```bash
+    poetry run uvicorn main:app --host 0.0.0.0 --port 8000
+    ```	
+
+6. Access the API:
+
+    Open your web browser and navigate to http://localhost:8000/docs to view and interact with the API.
+
+## API Endpoints
+
+### POST /flood_prediction
+
+**Description**: Predict flood probability and provide rainfall and river discharge estimates.
+
+**Request Body:**
+
+- location (string): The name of the location to predict floods for.
+
+**Response:**
+
+- flood_probability (float): The predicted probability of a flood.
+- estimated_rainfall (float): The estimated rainfall in millimeters.
+- daily_river_discharge (float): The estimated daily river discharge.
+
+**Example:**
+
+```json
+{
+  "location": "Barisal" # Currently only supporting the 33 stations in Bangladesh
+}
+```	
+
+**Response Example:**
+
+```json
+
+{
+  "flood_probability": 0.75,
+  "estimated_rainfall": 10.5,
+  "daily_river_discharge": 120.0
+}
+```	
+
+## Contributions
+
+Contributions are welcome! Please open an issue or submit a pull request on GitHub.
