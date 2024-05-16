@@ -2,6 +2,7 @@ from src.utils import logger
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from datetime import datetime
+from starlette.responses import RedirectResponse
 import requests  # For fetching Open-Meteo data
 from joblib import load
 import numpy as np
@@ -12,24 +13,34 @@ import pandas as pd
 from retry_requests import retry
 import uvicorn
 
-app = FastAPI()
+app = FastAPI(
+    title="Flood Prediction API",
+    description="An API to predict floods based on weather data and provide rainfall and river discharge estimates.",
+    version="1.0.0"
+)
+
 
 
 class FloodPredictionRequest(BaseModel):
     location: str
-    
+
+
 class FloodPredictionResponse(BaseModel):
     flood_probability: float
     estimated_rainfall: float
     daily_river_discharge: float
-    
 
-# Load the trained model
+
 def load_model():
-    return TabularPredictor.load("AutogluonModels/ag-20240515_105536")
+    return TabularPredictor.load("models/ag-20240515_132315")
+
 
 def load_reference_data():
     return pd.read_csv('data/reference_data/reference.csv')
+
+@app.get("/", include_in_schema=False)
+async def custom_swagger_ui_html():
+    return RedirectResponse(url="/docs")
 
 
 @app.post("/flood_prediction", response_model=FloodPredictionResponse)
@@ -115,6 +126,7 @@ async def flood_prediction(request: FloodPredictionRequest):
     except Exception as e:
         logger.error(f"An error occurred: {e}")
         raise HTTPException(status_code=500, detail="An unexpected error occurred.") from e
+
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
