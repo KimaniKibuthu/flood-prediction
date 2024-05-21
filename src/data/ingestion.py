@@ -1,30 +1,50 @@
-# -*- coding: utf-8 -*-
-import click
-import logging
-from pathlib import Path
-from dotenv import find_dotenv, load_dotenv
+"""
+A module containing the Data Ingestion Pipeline
+"""
 
+# Import the necessary modules
+import pandas as pd
+from typing import Optional, Dict, Any
+from src.utils import load_config, logger
 
-@click.command()
-@click.argument('input_filepath', type=click.Path(exists=True))
-@click.argument('output_filepath', type=click.Path())
-def main(input_filepath, output_filepath):
-    """ Runs data processing scripts to turn raw data from (../raw) into
-        cleaned data ready to be analyzed (saved in ../processed).
+# Define Data Ingestion class
+class DataIngestion:
     """
-    logger = logging.getLogger(__name__)
-    logger.info('making final data set from raw data')
+    A class to handle data ingestion.
+    """
+    
+    def __init__(self, data_path: Optional[str]=None, config:Optional[Dict[str, Any]] = None):
+        """
+        Initialize the DataIngestion class.
 
+        Parameters:
+        - data_path (str): Path to the data file. If None, it will be loaded from the config.
+        - config (dict): Configuration dictionary. If None, it will be loaded using the load_config function.
+        """
+        self.config = config if config else load_config()
+        self.data_path = data_path if data_path else self.config["data"]["raw_data_path"]
+        
+    def load_data(self) -> pd.DataFrame:
+        """
+        Load the data from the specified data path.
 
-if __name__ == '__main__':
-    log_fmt = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-    logging.basicConfig(level=logging.INFO, format=log_fmt)
-
-    # not used in this stub but often useful for finding various files
-    project_dir = Path(__file__).resolve().parents[2]
-
-    # find .env automagically by walking up directories until it's found, then
-    # load up the .env entries as environment variables
-    load_dotenv(find_dotenv())
-
-    main()
+        Returns:
+        - DataFrame: Loaded data as a pandas DataFrame.
+        
+        Raises:
+        - Exception: If there is an error in loading the data.
+        """
+        try:
+            logger.info("Loading data from %s", self.data_path)
+            data = pd.read_csv(self.data_path)
+            logger.info("Data loaded successfully")
+            return data
+        except FileNotFoundError as fnf_error:
+            logger.error("File not found: %s", self.data_path)
+            raise fnf_error
+        except pd.errors.EmptyDataError as ede_error:
+            logger.error("No data: %s", self.data_path)
+            raise ede_error
+        except Exception as e:
+            logger.error("Error loading data: %s", str(e))
+            raise e
