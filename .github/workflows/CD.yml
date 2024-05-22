@@ -20,4 +20,4 @@ jobs:
           wait_deploy: true
           github_deployment: true
           deployment_environment: 'production'
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.ACCESS_TOKEN }}
