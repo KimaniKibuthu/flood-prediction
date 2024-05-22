@@ -26,6 +26,7 @@ COPY --from=builder /app/ /app/
 COPY app.py app.py
 COPY configs configs/
 COPY models models/
+COPY src/ src/
 
 # Expose the port for FastAPI
 EXPOSE 8000
