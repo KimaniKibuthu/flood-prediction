@@ -22,6 +22,7 @@ flood-prediction/
 ├── README.md                  
 ├── Makefile 
 ├── app.py  
+├── Dockerfile
 ├── pyproject.toml                                      
 ├── configs                      
 │   └── configs.yaml               # Configurations for the project   
@@ -45,27 +46,15 @@ flood-prediction/
 │
 └── src                          # Source code for use in this project.
     ├── __init__.py              # Makes src a Python module.
-    │
-    ├── data                     # Data engineering scripts.
-    │   ├── build_features.py    
-    │   ├── cleaning.py          
-    │   ├── ingestion.py         
-    │   ├── labeling.py          
-    │   ├── splitting.py         
-    │   └── validation.py        
-    │
-    ├── models                   # ML model engineering (a folder for each model).
-    │   └── model1      
-    │       ├── dataloader.py    
-    │       ├── hyperparameters_tuning.py 
-    │       ├── model.py         
-    │       ├── predict.py       
-    │       ├── preprocessing.py 
-    │       └── train.py         
-    │
-    └── visualization        # Scripts to create exploratory and results oriented visualizations.
-        ├── evaluation.py        
-        └── exploration.py       
+    │                   
+    ├── build_features.py    
+    ├── cleaning.py          
+    ├── ingestion.py         
+    ├── monitoring.py          
+    ├── splitting.py         
+    ├── full_pipeline.py           
+    ├── train.py         
+
 ```
 **DISCLAIMER**: As the project is still underway, all the work done is currently in the `notebooks` directory, the API in the `app.py` file and the model in the `models` directory. 
 ## Installation
