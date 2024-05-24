@@ -24,7 +24,13 @@ jobs:
 
       - name: Install dependencies
         run: poetry install --no-root
-
+        
+      - name: Add project root to PYTHONPATH
+        run: |
+          import os
+          os.environ['PYTHONPATH'] = os.path.abspath('.')
+        shell: python
+        
       - name: Run tests
         run: poetry run pytest
 
