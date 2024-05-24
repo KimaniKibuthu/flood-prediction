@@ -8,8 +8,6 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    env:
-      PYTHONPATH: ${{ secrets.PYTHONPATH }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -26,10 +24,7 @@ jobs:
         run: poetry install --no-root
         
       - name: Add project root to PYTHONPATH
-        run: |
-          import os
-          os.environ['PYTHONPATH'] = os.path.abspath('.')
-        shell: python
+        run: export PYTHONPATH="$PWD:$PYTHONPATH"    
         
       - name: Run tests
         run: poetry run pytest
