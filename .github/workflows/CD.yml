@@ -1,4 +1,4 @@
-name: Build and Deploy 
+name: Deploy to Render
 
 on:
   push:
@@ -8,16 +8,29 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    permissions:
-      deployments: write
+
     steps:
-      - uses: actions/checkout@v3
-      - uses: JorgeLNJunior/render-deploy@v1.4.4
-        with:
-          service_id: ${{ secrets.RENDER_SERVICE_ID }}
-          api_key: ${{ secrets.RENDER_API_KEY }}
-          clear_cache: true
-          wait_deploy: true
-          github_deployment: true
-          deployment_environment: 'production'
-          github_token: ${{ secrets.ACCESS_TOKEN }}
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v3
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: |
+        pip install poetry
+        poetry install --no-root
+
+    - name: Deploy to Render
+      env:
+        RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
+        SERVICE_ID: ${{ secrets.RENDER_SERVICE_ID }}
+      run: |
+        curl -X POST \
+          -H "Authorization: Bearer $RENDER_API_KEY" \
+          -H "Accept: application/json" \
+          -H "Content-Type: application/json" \
+          --data '{"serviceId": $SERVICE_ID, "branch": "main"}' \
+          https://api.render.com/v1/deploy
