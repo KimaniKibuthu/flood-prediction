@@ -25,7 +25,11 @@ jobs:
         
       - name: Add project root to PYTHONPATH
         run: export PYTHONPATH="$PWD:$PYTHONPATH"    
-        
+      - name: Print PYTHONPATH
+        run: |
+          import os
+          print(f"PYTHONPATH: {os.environ.get('PYTHONPATH')}")
+        shell: python
       - name: Run tests
         run: poetry run pytest
 
