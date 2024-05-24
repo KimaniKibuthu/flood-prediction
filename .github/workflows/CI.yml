@@ -29,7 +29,9 @@ jobs:
 
     - name: Print PYTHONPATH
       run: |
-        python -c "import os; print(f'PYTHONPATH: {os.environ.get('PYTHONPATH')}')"
+        import os
+        print(f"PYTHONPATH: {os.environ.get('PYTHONPATH')}")
+      shell: python
 
     - name: Run tests
       run: poetry run pytest
