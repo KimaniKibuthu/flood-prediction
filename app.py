@@ -38,7 +38,7 @@ class Settings(BaseSettings):
 
 settings = Settings()
 
-limiter = Limiter(key_func=get_remote_address, default_limits=["10/minute"])
+limiter = Limiter(key_func=get_remote_address, default_limits=["100/minute"])
 
 redis_client = redis.Redis(
     host=settings.redis_host,
