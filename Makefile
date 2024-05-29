@@ -6,5 +6,11 @@ run:
 start_app:
 	poetry run uvicorn app:app --reload
 
-build_docker_image:
-	docker build . -t flood-prediction-api:latest
+deploy:
+	docker-compose up --build
+
+stop_docker:
+	docker-compose down
+
+clean:
+	docker-compose down --rmi all

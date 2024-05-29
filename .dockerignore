@@ -89,7 +89,7 @@
 # Mypy cache
 **\.mypy_cache
 
-**\data
+
 **\AutogluonModels
 **\logs
 
@@ -461,3 +461,4 @@
 
 .venv\Lib\site-packages\lightning\app\cli\pl-app-template\ui\**\.eslintcache
 fly.toml
+
