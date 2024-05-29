@@ -1,5 +1,5 @@
 # Use a specific version of the Python image
-FROM python:3.11-slim AS builder
+FROM python:3.11-slim
 
 # Set the working directory in the container
 WORKDIR /app
@@ -13,19 +13,11 @@ RUN pip install poetry
 # Install the project dependencies
 RUN poetry config virtualenvs.create false && poetry install --no-interaction --no-ansi --no-root
 
-# Use a lightweight base image for the final image
-FROM python:3.11-slim
-
-# Set the working directory in the container
-WORKDIR /app
-
-# Copy the FastAPI application code and installed dependencies from the builder stage
-COPY --from=builder /app/ /app/
-
-# Copy the FastAPI application code to the working directory
-COPY app.py app.py
-COPY configs configs/
-COPY models models/
+# Copy the FastAPI application code and additional files to the working directory
+COPY app.py .
+COPY data/ data/ 
+COPY configs/ configs/
+COPY models/ models/
 COPY src/ src/
 
 # Expose the port for FastAPI

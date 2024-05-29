@@ -1,0 +1,13 @@
+version: '3.11'
+
+services:
+  flood-prediction-api:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - REDIS_HOST=${REDIS_HOST}
+      - REDIS_PORT=${REDIS_PORT}
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - OPEN_METEO_URL=${OPEN_METEO_URL}
+      - FLOOD_API_URL=${FLOOD_API_URL}
