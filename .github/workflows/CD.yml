@@ -25,22 +25,6 @@ jobs:
         pip install poetry
         poetry install --no-root
         
-    - name: Build docker file
-      run: |
-        make deploy
-        
-    - name: Wait for deployment to complete
-      run: |
-        sleep 60  
-        
-    - name: Carry out performance test
-      run: |
-         locust -f tests/performance_test.py --headless --host=http://localhost:8000 --users=10 --spawn-rate=2 --run-time 1m
-        
-    - name: clean up
-      run: |
-        make clean
-        
     - name: Deploying to Render
       env:
         RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
@@ -52,3 +36,13 @@ jobs:
           -H "Content-Type: application/json" \
           --data '{"serviceId": $SERVICE_ID, "branch": "main"}' \
           https://api.render.com/v1/deploy
+          
+    - name: Wait for deployment to complete
+      run: |
+        sleep 120  
+        
+    - name: Carry out performance test
+      run: |
+         locust -f tests/performance_test.py --headless --host=${{ secrets.RENDER_API_ADDRESS }} --users=10 --spawn-rate=2 --run-time 1m
+        
+   
