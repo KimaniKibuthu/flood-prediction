@@ -1,11 +1,17 @@
 # Use a specific version of the Python image
-FROM python:3.11-slim
+FROM python:3.11.5-slim
 
 # Set the working directory in the container
 WORKDIR /app
 
+# Install necessary system packages
+RUN apt-get update && apt-get install -y \
+    libgomp1 \
+    && rm -rf /var/lib/apt/lists/*
 # Copy only the necessary files for installing dependencies
 COPY poetry.lock pyproject.toml ./
+
+ENV POETRY_HTTP_TIMEOUT=3600 
 
 # Install Poetry with specific version
 RUN pip install poetry

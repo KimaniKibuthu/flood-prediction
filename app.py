@@ -12,8 +12,9 @@ from retry_requests import retry
 import uvicorn
 import asyncio
 import pickle
-import numpy as np
 import json
+import os
+import numpy as np
 from slowapi import _rate_limit_exceeded_handler, Limiter
 from slowapi.errors import RateLimitExceeded
 from slowapi.middleware import SlowAPIMiddleware
@@ -45,6 +46,8 @@ redis_client = redis.Redis(
     username="default",
     password=settings.redis_password,
 )
+
+redis_client.flushdb()
 
 
 class FloodPredictionRequest(BaseModel):
@@ -84,7 +87,8 @@ def load_model(config: Dict[str, Any] = load_config()) -> TabularPredictor:
     Returns:
         TabularPredictor: The loaded pre-trained model.
     """
-    return TabularPredictor.load(config["modelling"]["models_directory"])
+    model_path = os.path.normpath(config["modelling"]["models_directory"])
+    return TabularPredictor.load(model_path)
 
 
 def load_reference_data(config: Dict[str, Any] = load_config()) -> pd.DataFrame:
@@ -97,7 +101,8 @@ def load_reference_data(config: Dict[str, Any] = load_config()) -> pd.DataFrame:
     Returns:
         pd.DataFrame: The reference data as a pandas DataFrame.
     """
-    return pd.read_csv(config["data"]["reference_data_path"])
+    reference_data_path = os.path.normpath(config["data"]["reference_data_path"])
+    return pd.read_csv(reference_data_path)
 
 
 def validate_location(location: str, reference_data: pd.DataFrame) -> None:
@@ -413,7 +418,8 @@ def load_and_cache_model(config: Dict[str, Any] = load_config()) -> TabularPredi
     if model_bytes:
         model = pickle.loads(model_bytes)
     else:
-        model = TabularPredictor.load(config["modelling"]["models_directory"])
+        model_path = os.path.normpath(config["modelling"]["models_directory"])
+        model = TabularPredictor.load(model_path)
         model_bytes = pickle.dumps(model)
         redis_client.set(model_key, model_bytes)
     return model
