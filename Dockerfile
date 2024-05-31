@@ -27,7 +27,7 @@ COPY models/ models/
 COPY src/ src/
 
 # Expose the port for FastAPI
-EXPOSE 8000
+EXPOSE 8080
 
 # Set the entrypoint to run FastAPI
-CMD ["poetry", "run", "uvicorn", "flood_prediction_api:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["poetry", "run", "uvicorn", "flood_prediction_api:app", "--host", "0.0.0.0", "--port", "8080"]
