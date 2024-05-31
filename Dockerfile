@@ -20,14 +20,14 @@ RUN pip install poetry
 RUN poetry config virtualenvs.create false && poetry install --no-interaction --no-ansi --no-root
 
 # Copy the FastAPI application code and additional files to the working directory
-COPY app.py .
+COPY flood_prediction_api.py .
 COPY data/ data/ 
 COPY configs/ configs/
 COPY models/ models/
 COPY src/ src/
 
 # Expose the port for FastAPI
-EXPOSE 8080
+EXPOSE 8000
 
 # Set the entrypoint to run FastAPI
-CMD ["poetry", "run", "uvicorn", "flood_prediction_api:app", "--host", "0.0.0.0", "--port", "8080"]
+CMD ["poetry", "run", "uvicorn", "flood_prediction_api:app", "--host", "0.0.0.0", "--port", "8000"]
