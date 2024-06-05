@@ -425,9 +425,46 @@ def load_and_cache_model(config: Dict[str, Any] = load_config()) -> TabularPredi
     return model
 
 
+# List of locations covered by the model
+locations = [
+    "Barisal",
+    "Bhola",
+    "Bogra",
+    "Chandpur",
+    "Chittagong (City-Ambagan)",
+    "Chittagong (IAP-Patenga)",
+    "Comilla",
+    "Cox's Bazar",
+    "Dhaka",
+    "Dinajpur",
+    "Faridpur",
+    "Feni",
+    "Hatiya",
+    "Ishurdi",
+    "Jessore",
+    "Khepupara",
+    "Khulna",
+    "Kutubdia",
+    "Madaripur",
+    "Maijdee Court",
+    "Mongla",
+    "Mymensingh",
+    "Patuakhali",
+    "Rajshahi",
+    "Rangamati",
+    "Rangpur",
+    "Sandwip",
+    "Satkhira",
+    "Sitakunda",
+    "Srimangal",
+    "Sylhet",
+    "Tangail",
+    "Teknaf",
+]
+
 app = FastAPI(
     title="Flood Prediction API",
-    description="An API to predict flood probabilities using weather data.",
+    description="An API to predict flood probabilities using weather data. NOTE: Current scope is 33 locations in Bangladesh eg Dhaka. You can get the locations by running the locations endpoint.",
     version="1.0.0",
 )
 app.state.limiter = limiter
@@ -446,6 +483,17 @@ async def read_root() -> RedirectResponse:
     return RedirectResponse(url="/docs")
 
 
+@app.get("/v1/locations")
+def get_locations():
+    """
+    Get the locations covered by the model's scope.
+
+    Returns:
+        Dict[str, List[str]]: A dictionary containing the locations.
+    """
+    return {"locations": locations}
+
+
 @app.post(
     "/v1/flood-prediction",
     response_model=FloodPredictionResponse,
@@ -453,7 +501,7 @@ async def read_root() -> RedirectResponse:
 )
 async def flood_prediction(request: FloodPredictionRequest) -> FloodPredictionResponse:
     """
-    Predict flood probabilities based on the given location.
+    Predict flood probabilities based on the given location. (Current scope is 33 locations in Bangladesh)
 
     Args:
         request (FloodPredictionRequest): The request containing the location.
