@@ -11,7 +11,7 @@ The Flood Prediction API is designed to predict the likelihood of floods based o
 - Provide estimated rainfall and daily river discharge.
 
 ## Requirements
-- Python 3.8+
+- Python 3.11
 - Poetry
 
 ## Project Organization
@@ -45,8 +45,7 @@ flood-prediction/
 │   └── figures                  # Generated graphics and figures to be used in reporting.
 │
 └── src                          # Source code for use in this project.
-    ├── __init__.py              # Makes src a Python module.
-    │                   
+    ├── __init__.py              # Makes src a Python module.            
     ├── build_features.py    
     ├── cleaning.py          
     ├── ingestion.py         
@@ -89,40 +88,115 @@ flood-prediction/
 
     Open your web browser and navigate to http://localhost:8000/docs to view and interact with the API.
 
+
+
 ## API Endpoints
 
-### POST /flood_prediction
+### GET /
 
-**Description**: Predict flood probability and provide rainfall and river discharge estimates.
-
-**Request Body:**
-
-- location (string): The name of the location to predict floods for.
+**Description**: Redirects to the API documentation.
 
 **Response:**
+- Redirects to `/docs`
 
-- flood_probability (float): The predicted probability of a flood.
-- estimated_rainfall (float): The estimated rainfall in millimeters.
-- daily_river_discharge (float): The estimated daily river discharge.
+### GET /v1/locations
 
-**Example:**
+**Description**: Get the list of locations covered by the model's scope.
+
+**Response:**
+- `locations` (list): A list of location names covered by the model.
+
+**Example Response:**
 
 ```json
 {
-  "location": "Barisal" # Currently only supporting the 33 stations in Bangladesh
+  "locations": [
+    "Barisal",
+    "Bhola",
+    "Bogra",
+    "Chandpur",
+    "Chittagong (City-Ambagan)",
+    "Chittagong (IAP-Patenga)",
+    "Comilla",
+    "Cox's Bazar",
+    "Dhaka",
+    "Dinajpur",
+    "Faridpur",
+    "Feni",
+    "Hatiya",
+    "Ishurdi",
+    "Jessore",
+    "Khepupara",
+    "Khulna",
+    "Kutubdia",
+    "Madaripur",
+    "Maijdee Court",
+    "Mongla",
+    "Mymensingh",
+    "Patuakhali",
+    "Rajshahi",
+    "Rangamati",
+    "Rangpur",
+    "Sandwip",
+    "Satkhira",
+    "Sitakunda",
+    "Srimangal",
+    "Sylhet",
+    "Tangail",
+    "Teknaf"
+  ]
 }
-```	
+```
 
-**Response Example:**
+### POST /v1/flood-prediction
+
+**Description**: Predict flood probabilities based on the given location and provide rainfall and river discharge estimates.
+
+**Request Body:**
+- `location` (string): The name of the location to predict floods for. The location must be one of the locations listed in the `/v1/locations` endpoint.
+
+**Response:**
+- `current_flood_probability` (float): The predicted probability of a flood based on current weather data.
+- `forecast_flood_probability` (float): The predicted probability of a flood based on forecast weather data.
+- `estimated_rainfall` (float): The estimated rainfall in millimeters based on current weather data.
+- `daily_river_discharge` (float): The estimated daily river discharge based on forecast weather data.
+
+**Example Request:**
 
 ```json
-
 {
-  "flood_probability": 0.75,
+  "location": "Barisal"
+}
+```
+
+**Example Response:**
+
+```json
+{
+  "current_flood_probability": 0.75,
+  "forecast_flood_probability": 0.82,
   "estimated_rainfall": 10.5,
   "daily_river_discharge": 120.0
 }
-```	
+```
+
+
+### POST /v1/train-model
+
+**Description**: Train the flood prediction model.
+
+**Response:**
+- `message` (string): A success message indicating that the model was trained successfully.
+
+**Example Response:**
+
+```json
+{
+  "message": "Model Trained Successfully"
+}
+```
+
+
 
 ## Contributions
 
