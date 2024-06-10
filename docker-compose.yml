@@ -2,7 +2,7 @@ version: '3.11'
 
 services:
   api:
-    image: kimani007/flood-prediction-api:latest
+    image: kimani007/flood-prediction-api-v1:latest
     build: .
     ports:
       - "8000:8000"

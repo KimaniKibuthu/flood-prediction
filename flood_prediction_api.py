@@ -73,7 +73,8 @@ def cache_response(location: str, response: str) -> str:
     Returns:
         str: The cached response.
     """
-    redis_client.set(location, response, ex=3600)
+    location_lower = location.lower()
+    redis_client.set(location_lower, response, ex=3600)
     return response
 
 
@@ -116,7 +117,10 @@ def validate_location(location: str, reference_data: pd.DataFrame) -> None:
     Raises:
         HTTPException: If the location is not found in the reference data.
     """
-    if location not in reference_data["Station_Names"].values:
+    location_lower = location.lower()
+    reference_data_lower = reference_data["Station_Names"].str.lower()
+
+    if location_lower not in reference_data_lower.values:
         raise HTTPException(
             status_code=400,
             detail=f"Location '{location}' not found in reference data.",
@@ -425,6 +429,30 @@ def load_and_cache_model(config: Dict[str, Any] = load_config()) -> TabularPredi
     return model
 
 
+def get_formatted_location(user_location: str) -> str:
+    """
+    Find the formatted location in the locations list.
+
+    Args:
+        user_location (str): The location provided by the user.
+
+    Returns:
+        str: The formatted location from the locations list.
+
+    Raises:
+        HTTPException: If the location is not found in the locations list.
+    """
+    user_location_lower = user_location.lower()
+    for location in locations:
+        if user_location_lower == location.lower():
+            return location
+
+    raise HTTPException(
+        status_code=400,
+        detail=f"Location '{user_location}' not found in the valid locations list.",
+    )
+
+
 # List of locations covered by the model
 locations = [
     "Barisal",
@@ -483,7 +511,7 @@ async def read_root() -> RedirectResponse:
     return RedirectResponse(url="/docs")
 
 
-@app.get("/v1/locations")
+@app.get("/v1/locations", tags=["Get locations in scope"])
 def get_locations():
     """
     Get the locations covered by the model's scope.
@@ -515,8 +543,10 @@ async def flood_prediction(request: FloodPredictionRequest) -> FloodPredictionRe
     """
     try:
         location = request.location
+        location
         reference_data = load_reference_data()
         validate_location(location, reference_data)
+        location = get_formatted_location(location)
 
         cached_response = redis_client.get(location)
         if cached_response:
