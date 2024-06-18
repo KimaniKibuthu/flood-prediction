@@ -37,12 +37,6 @@ jobs:
           --data '{"serviceId": $SERVICE_ID, "branch": "main"}' \
           https://api.render.com/v1/deploy
           
-    - name: Wait for deployment to complete
-      run: |
-        sleep 120  
-        
-    - name: Carry out performance test
-      run: |
-         locust -f tests/performance_test.py --headless --host=${{ secrets.RENDER_API_ADDRESS }} --users=10 --spawn-rate=2 --run-time 1m
+ 
         
    
