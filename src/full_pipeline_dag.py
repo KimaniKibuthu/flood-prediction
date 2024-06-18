@@ -1,48 +1,24 @@
-from typing import Dict, Tuple
+from typing import Dict
 import pandas as pd
-from airflow import DAG
-from airflow.operators.python import PythonOperator
-from airflow.utils.dates import days_ago
+from datetime import timedelta
+from prefect import task, flow
 from autogluon.tabular import TabularDataset, TabularPredictor
 from src.utils import load_config, logger
-from src.ingestion import DataIngestion
-from src.cleaning import DataTransformationPipeline
-from src.build_features import FeatureEngineeringPipeline, DataProcessor
 from src.train import ModelTrainer, ModelEvaluator
-from datetime import timedelta
+from src.monitoring import check_drift
 
 
-def data_transformation_task(config: Dict) -> None:
-    logger.info("Data Transformation started...")
-    transformation_params = {
-        "clean_up_column_names": {"columns": {"Flood?": "Flood"}},
-        "fill_null_values": {"fill_value": 0, "column_to_fill": "Flood"},
-    }
-    data_ingestion = DataIngestion(config["data"]["raw_data_path"])
-    data_transformation_pipeline = DataTransformationPipeline(
-        config=config, data_ingestion=data_ingestion
-    )
-    data_transformation_pipeline.run_pipeline(transformation_params)
-    logger.info("Data Transformation completed successfully")
+@task
+def condition_check() -> bool:
+    # Perform the data drift check
+    drift_detected = check_drift()
+    return drift_detected
 
 
-def feature_engineering_task(config: Dict) -> Tuple[pd.DataFrame, pd.DataFrame]:
-    logger.info("Feature Engineering started...")
-    data_processor = DataProcessor(
-        config["data"]["processed_data_path"], config["data"]["reference_data_path"]
-    )
-    feature_engineering_pipeline = FeatureEngineeringPipeline(data_processor)
-    train_data, test_data = feature_engineering_pipeline.run()
-    logger.info("Feature engineering completed successfully")
-    return train_data, test_data
-
-
-def model_training_task(config: Dict, ti) -> TabularPredictor:
+@task
+def model_training_task(config: Dict) -> TabularPredictor:
     logger.info("Training and evaluation started...")
-    test_data = ti.xcom_pull(task_ids="feature_engineering", key="return_value")[1]
-    predictor = ti.xcom_pull(task_ids="model_training", key="return_value")
-    train_data = ti.xcom_pull(task_ids="feature_engineering", key="return_value")[0]
-    train_dataset = TabularDataset(train_data)
+    train_dataset = TabularDataset(config["data"]["train_data_path"])
 
     model_trainer = ModelTrainer(
         label_column=config["modelling"]["target"],
@@ -55,58 +31,41 @@ def model_training_task(config: Dict, ti) -> TabularPredictor:
     return predictor
 
 
-def model_evaluation_task(
-    config: Dict, test_data: pd.DataFrame, predictor: TabularPredictor
-) -> None:
+@task
+def model_evaluation_task(config: Dict) -> Dict:
+    predictor = TabularPredictor.load(config["modelling"]["models_directory"])
+    test_data = pd.read_csv(config["data"]["test_data_path"])
     model_evaluator = ModelEvaluator(test_data, config["modelling"]["target"])
     performance = model_evaluator.evaluate_model(predictor)
     logger.info(
         f"Model training and evaluation completed with performance metrics: {performance['performance']}"
     )
+    return performance
 
 
-default_args = {
-    "owner": "flood-prediction-team",
-    "depends_on_past": False,
-    "email_on_failure": False,
-    "email_on_retry": False,
-    "retries": 1,
-    "retry_delay": timedelta(minutes=3),
-}
+# Load config
+config = load_config()
 
-with DAG(
-    "full_pipeline_dag",
-    default_args=default_args,
-    description="A full pipeline DAG",
-    schedule_interval=None,
-    start_date=days_ago(1),
-    catchup=False,
-) as dag:
+# Define the Prefect Flow
+@flow
+def full_pipeline_flow(config: Dict):
+    # Define tasks
+    data_drift_detected = condition_check()
+    if data_drift_detected:
+        # Run tasks if data drift is detected
+        predictor = model_training_task(config)
+        performance = model_evaluation_task(predictor, config)
 
-    config = load_config()
+        # Set task dependencies
+        predictor >> model_evaluation_task
 
-    data_transformation = PythonOperator(
-        task_id="data_transformation",
-        python_callable=data_transformation_task,
-        op_kwargs={"config": config},
-    )
+    else:
+        # Do nothing if data drift is not detected
+        pass
 
-    feature_engineering = PythonOperator(
-        task_id="feature_engineering",
-        python_callable=feature_engineering_task,
-        op_kwargs={"config": config},
-    )
 
-    model_training = PythonOperator(
-        task_id="model_training",
-        python_callable=model_training_task,
-        op_kwargs={"config": config},
-    )
+# Optionally, schedule the flow to run daily
+full_pipeline_flow.schedule = timedelta(days=1)
 
-    model_evaluation = PythonOperator(
-        task_id="model_evaluation",
-        python_callable=model_evaluation_task,
-        op_kwargs={"config": config},
-    )
-
-    data_transformation >> feature_engineering >> model_training >> model_evaluation
+# Run the flow
+full_pipeline_flow(config)
