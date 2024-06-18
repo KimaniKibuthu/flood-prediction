@@ -24,7 +24,6 @@ mlflow = "^2.12.2"
 optuna = "^3.6.1"
 fastapi = "^0.111.0"
 pytest = "^8.2.1"
-apache-airflow = "^2.9.1"
 pre-commit = "^3.7.1"
 anyio = "^4.3.0"
 redis = "^5.0.4"
@@ -36,9 +35,10 @@ pydantic-settings = "^2.2.1"
 locust = "^2.28.0"
 newrelic = "^9.10.0"
 shap = "^0.45.1"
-uvicorn = "^0.30.0"
 autogluon-tabular = {extras = ["all"], version = "^1.1.0"}
 pyyaml = "^6.0.1"
+evidently = "^0.4.27"
+uvicorn = "0.28.1"
 
 [build-system]
 requires = ["poetry-core"]
