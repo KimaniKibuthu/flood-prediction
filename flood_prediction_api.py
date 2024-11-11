@@ -19,7 +19,7 @@ from slowapi import _rate_limit_exceeded_handler, Limiter
 from slowapi.errors import RateLimitExceeded
 from slowapi.middleware import SlowAPIMiddleware
 from slowapi.util import get_remote_address
-import redis
+#import redis
 from functools import lru_cache
 from requests import Session, Response
 from typing import Any, Dict, List, Tuple, Union
@@ -40,14 +40,14 @@ settings = Settings()
 
 limiter = Limiter(key_func=get_remote_address, default_limits=["100/minute"])
 
-redis_client = redis.Redis(
-    host=settings.redis_host,
-    port=settings.redis_port,
-    username="default",
-    password=settings.redis_password,
-)
+# #redis_client = redis.Redis(
+#     host=settings.redis_host,
+#     port=settings.redis_port,
+#     username="default",
+#     password=settings.redis_password,
+# )
 
-redis_client.flushdb()
+#redis_client.flushdb()
 
 
 class FloodPredictionRequest(BaseModel):
@@ -61,21 +61,21 @@ class FloodPredictionResponse(BaseModel):
     daily_river_discharge: float
 
 
-@lru_cache(maxsize=1024)
-def cache_response(location: str, response: str) -> str:
-    """
-    Cache the response for a given location.
+# @lru_cache(maxsize=1024)
+# def cache_response(location: str, response: str) -> str:
+#     """
+#     Cache the response for a given location.
 
-    Args:
-        location (str): The location for which the response is being cached.
-        response (str): The response to be cached.
+#     Args:
+#         location (str): The location for which the response is being cached.
+#         response (str): The response to be cached.
 
-    Returns:
-        str: The cached response.
-    """
-    location_lower = location.lower()
-    redis_client.set(location_lower, response, ex=3600)
-    return response
+#     Returns:
+#         str: The cached response.
+#     """
+#     location_lower = location.lower()
+#     redis_client.set(location_lower, response, ex=3600)
+#     return response
 
 
 def load_model(config: Dict[str, Any] = load_config()) -> TabularPredictor:
@@ -418,14 +418,14 @@ def load_and_cache_model(config: Dict[str, Any] = load_config()) -> TabularPredi
         TabularPredictor: The loaded and cached pre-trained model.
     """
     model_key = "flood_prediction_model"
-    model_bytes = redis_client.get(model_key)
-    if model_bytes:
-        model = pickle.loads(model_bytes)
-    else:
-        model_path = os.path.normpath(config["modelling"]["models_directory"])
-        model = TabularPredictor.load(model_path)
-        model_bytes = pickle.dumps(model)
-        redis_client.set(model_key, model_bytes)
+    #model_bytes = redis_client.get(model_key)
+    #if model_bytes:
+        #model = pickle.loads(model_bytes)
+    #else:
+    model_path = os.path.normpath(config["modelling"]["models_directory"])
+    model = TabularPredictor.load(model_path)
+    #model_bytes = pickle.dumps(model)
+    #redis_client.set(model_key, model_bytes)
     return model
 
 
@@ -548,11 +548,11 @@ async def flood_prediction(request: FloodPredictionRequest) -> FloodPredictionRe
         validate_location(location, reference_data)
         location = get_formatted_location(location)
 
-        cached_response = redis_client.get(location)
-        if cached_response:
-            response_dict = json.loads(cached_response)
-            response = FloodPredictionResponse(**response_dict)
-            return response
+        # cached_response = redis_client.get(location)
+        # if cached_response:
+        #     response_dict = json.loads(cached_response)
+        #     response = FloodPredictionResponse(**response_dict)
+        #     return response
 
         cache_session = requests_cache.CachedSession(".cache", expire_after=3600)
         retry_session = retry(cache_session, retries=5, backoff_factor=0.2)
@@ -583,7 +583,7 @@ async def flood_prediction(request: FloodPredictionRequest) -> FloodPredictionRe
             daily_river_discharge=daily_river_discharge,
         )
         logger.info("Prediction successful")
-        cache_response(location, response.json())
+        #cache_response(location, response.json())
         return response
 
     except RateLimitExceeded:
