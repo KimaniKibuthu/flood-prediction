@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package flood_prediction;
+
+// Main service definition
+service FloodPredictionService {
+    // Get flood prediction for a location
+    rpc PredictFlood (FloodPredictionRequest) returns (FloodPredictionResponse) {}
+    
+    // Get list of available locations
+    rpc GetLocations (LocationsRequest) returns (LocationsResponse) {}
+}
+
+// Request message for flood prediction
+message FloodPredictionRequest {
+    string location = 1;  // Location for which to predict flood
+}
+
+// Response message containing flood prediction results
+message FloodPredictionResponse {
+    double current_flood_probability = 1;
+    double forecast_flood_probability = 2;
+    double estimated_rainfall = 3;
+    double daily_river_discharge = 4;
+}
+
+// Request message for getting locations
+message LocationsRequest {
+    // Empty request as we don't need any parameters
+}
+
+// Response message containing available locations
+message LocationsResponse {
+    repeated string locations = 1;  // List of available locations
+}
